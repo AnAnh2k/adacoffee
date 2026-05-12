@@ -1,24 +1,30 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
+  const navLinkClass = ({ isActive }) => 
+    `text-sm font-semibold uppercase transition-colors relative pb-1 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 ${
+      isActive ? 'text-primary after:w-full' : 'text-gray-700 hover:text-primary after:w-0 hover:after:w-full'
+    }`;
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-wider">
+            <NavLink to="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-wider">
               <i className="fas fa-coffee text-primary"></i>
               <span>ADA Coffee</span>
-            </a>
+            </NavLink>
           </div>
 
           {/* Menu chính */}
           <nav className="hidden md:flex items-center space-x-10">
-            <a href="/" className="text-sm font-semibold uppercase hover:text-primary transition-colors active">Trang chủ</a>
-            <a href="/products" className="text-sm font-semibold uppercase hover:text-primary transition-colors">Sản phẩm</a>
-            <a href="/news" className="text-sm font-semibold uppercase hover:text-primary transition-colors">Tin tức</a>
-            <a href="/about" className="text-sm font-semibold uppercase hover:text-primary transition-colors">Giới thiệu</a>
+            <NavLink to="/" className={navLinkClass}>Trang chủ</NavLink>
+            <NavLink to="/products" className={navLinkClass}>Sản phẩm</NavLink>
+            <NavLink to="/news" className={navLinkClass}>Tin tức</NavLink>
+            <NavLink to="/about" className={navLinkClass}>Giới thiệu</NavLink>
           </nav>
 
           {/* Icon bên phải */}

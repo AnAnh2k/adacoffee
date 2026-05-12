@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -8,10 +9,10 @@ const Footer = () => {
           {/* About */}
           <div>
             <div className="mb-6">
-              <a href="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-wider">
+              <Link to="/" className="flex items-center gap-2 text-xl font-bold uppercase tracking-wider">
                 <i className="fas fa-coffee text-primary"></i>
                 <span>ADA Coffee</span>
-              </a>
+              </Link>
             </div>
             <p className="text-gray-500 text-sm leading-loose">
               Nơi cuộc hẹn tròn đầy với cà phê, món ăn nhẹ và không gian cảm hứng. Chúng tôi mang đến trải nghiệm tốt nhất cho khách hàng.
@@ -33,10 +34,10 @@ const Footer = () => {
           <div>
             <h6 className="text-sm font-bold uppercase tracking-widest mb-6">Liên kết nhanh</h6>
             <ul className="space-y-3">
-              <li><a href="/about" className="text-gray-500 text-sm hover:text-primary transition-colors">Giới thiệu</a></li>
-              <li><a href="/news" className="text-gray-500 text-sm hover:text-primary transition-colors">Tin tức</a></li>
-              <li><a href="/contact" className="text-gray-500 text-sm hover:text-primary transition-colors">Liên hệ</a></li>
-              <li><a href="#" className="text-gray-500 text-sm hover:text-primary transition-colors">Câu hỏi thường gặp</a></li>
+              <li><Link to="/about" className="text-gray-500 text-sm hover:text-primary transition-colors">Giới thiệu</Link></li>
+              <li><Link to="/news" className="text-gray-500 text-sm hover:text-primary transition-colors">Tin tức</Link></li>
+              <li><Link to="/contact" className="text-gray-500 text-sm hover:text-primary transition-colors">Liên hệ</Link></li>
+              <li><Link to="#" className="text-gray-500 text-sm hover:text-primary transition-colors">Câu hỏi thường gặp</Link></li>
             </ul>
           </div>
 
@@ -44,10 +45,10 @@ const Footer = () => {
           <div>
             <h6 className="text-sm font-bold uppercase tracking-widest mb-6">Tài khoản</h6>
             <ul className="space-y-3">
-              <li><a href="/login" className="text-gray-500 text-sm hover:text-primary transition-colors">Đăng nhập</a></li>
-              <li><a href="/cart" className="text-gray-500 text-sm hover:text-primary transition-colors">Giỏ hàng</a></li>
-              <li><a href="/register" className="text-gray-500 text-sm hover:text-primary transition-colors">Đăng ký</a></li>
-              <li><a href="#" className="text-gray-500 text-sm hover:text-primary transition-colors">Đơn hàng</a></li>
+              <li><Link to="/login" className="text-gray-500 text-sm hover:text-primary transition-colors">Đăng nhập</Link></li>
+              <li><Link to="/cart" className="text-gray-500 text-sm hover:text-primary transition-colors">Giỏ hàng</Link></li>
+              <li><Link to="/register" className="text-gray-500 text-sm hover:text-primary transition-colors">Đăng ký</Link></li>
+              <li><Link to="#" className="text-gray-500 text-sm hover:text-primary transition-colors">Đơn hàng</Link></li>
             </ul>
           </div>
 

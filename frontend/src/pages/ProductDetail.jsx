@@ -1,0 +1,159 @@
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { products } from '../data/products';
+import ProductCard from '../components/ProductCard';
+import ProductModal from '../components/ProductModal';
+
+const ProductDetail = () => {
+  const { id } = useParams();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const product = products.find(p => p.id === parseInt(id));
+
+  const handleQuickView = (prod) => {
+    setSelectedProduct(prod);
+    setIsModalOpen(true);
+  };
+
+  // Lấy sản phẩm liên quan (cùng danh mục, bỏ qua sản phẩm hiện tại)
+  const relatedProducts = products
+    .filter(p => p.categoryId === product?.categoryId && p.id !== product?.id)
+    .slice(0, 4);
+
+  if (!product) {
+    return (
+      <div className="pt-40 pb-20 text-center">
+        <h2 className="text-2xl font-bold mb-4">Không tìm thấy sản phẩm!</h2>
+        <Link to="/products" className="text-primary font-bold border-b-2 border-primary">Quay lại cửa hàng</Link>
+      </div>
+    );
+  }
+
+  return (
+    <>
+    <div className="pt-24 pb-20">
+      <div className="bg-gray-50 py-4 mb-10">
+        <div className="container mx-auto px-4">
+          <div className="text-xs uppercase tracking-widest flex items-center gap-2">
+            <Link to="/" className="hover:text-primary transition-colors">Trang chủ</Link>
+            <span className="text-gray-400">/</span>
+            <Link to="/products" className="hover:text-primary transition-colors">Sản phẩm</Link>
+            <span className="text-gray-400">/</span>
+            <span className="text-gray-400 font-bold">{product.name}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row gap-12">
+          {/* Image Column */}
+          <div className="w-full md:w-1/2">
+            <div className="rounded-2xl overflow-hidden shadow-lg aspect-[3/4] bg-gray-100">
+              <img 
+                src={`/img/products/${product.img}`} 
+                alt={product.name} 
+                className="w-full h-full object-cover"
+                onError={(e) => { e.target.src = 'https://placehold.co/600x800?text=Sản+phẩm'; }}
+              />
+            </div>
+          </div>
+
+          {/* Info Column */}
+          <div className="w-full md:w-1/2 py-4">
+            <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="text-3xl font-bold text-primary">{product.price.toLocaleString()} ₫</div>
+              <div className="text-gray-400 line-through text-lg">{(product.price * 1.2).toLocaleString()} ₫</div>
+            </div>
+
+            <p className="text-gray-500 mb-8 leading-relaxed">
+              Trải nghiệm hương vị tinh tế từ những hạt cà phê được tuyển chọn kỹ lưỡng. {product.name} là sự lựa chọn hoàn hảo để bắt đầu một ngày mới đầy hứng khởi hoặc những phút giây thư giãn bên bạn bè.
+            </p>
+
+            <div className="space-y-6 mb-10">
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-bold uppercase w-24 text-gray-400">Tình trạng:</span>
+                <span className="text-sm font-bold text-green-600">Còn hàng</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-bold uppercase w-24 text-gray-400">Số lượng:</span>
+                <div className="flex items-center border border-gray-200 rounded-full h-12 overflow-hidden">
+                  <button className="px-5 hover:bg-gray-50">-</button>
+                  <input type="text" value="1" className="w-12 text-center border-none focus:ring-0 text-sm font-bold" readOnly />
+                  <button className="px-5 hover:bg-gray-50">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <button className="flex-1 h-14 bg-black text-white rounded-full font-bold uppercase tracking-widest hover:bg-primary transition-all">
+                Thêm vào giỏ
+              </button>
+              <button className="w-14 h-14 border border-gray-200 rounded-full flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all">
+                <i className="far fa-heart"></i>
+              </button>
+            </div>
+
+            <div className="mt-12 pt-8 border-t border-gray-100 grid grid-cols-2 gap-6">
+              <div className="flex items-center gap-3">
+                <i className="fas fa-truck text-primary"></i>
+                <span className="text-xs font-bold uppercase">Giao hàng nhanh</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <i className="fas fa-undo text-primary"></i>
+                <span className="text-xs font-bold uppercase">Đổi trả trong 24h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Section */}
+        <div className="mt-20">
+          <div className="flex border-b border-gray-100 mb-10">
+            <button className="px-8 py-4 text-sm font-bold uppercase border-b-2 border-primary tracking-widest">Mô tả chi tiết</button>
+            <button className="px-8 py-4 text-sm font-bold uppercase border-gray-100 text-gray-400 tracking-widest">Đánh giá (0)</button>
+          </div>
+          <div className="max-w-3xl">
+            <h5 className="text-lg font-bold mb-4">Về sản phẩm này</h5>
+            <p className="text-gray-500 mb-6 leading-loose">
+              Mỗi tách {product.name} tại ADA Coffee đều được pha chế bằng cả tâm huyết. Chúng tôi sử dụng nguồn nguyên liệu sạch, được kiểm định khắt khe để đảm bảo sức khỏe người dùng. 
+            </p>
+            <ul className="list-disc list-inside space-y-3 text-gray-500 text-sm">
+              <li>Nguyên liệu 100% từ thiên nhiên</li>
+              <li>Không sử dụng hóa chất bảo quản</li>
+              <li>Pha chế mới ngay sau khi nhận đơn</li>
+              <li>Đảm bảo vệ sinh an toàn thực phẩm</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Related Products Section */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-20 pt-20 border-t border-gray-100">
+            <div className="mb-12">
+              <h4 className="text-2xl font-bold uppercase inline-block border-b-2 border-primary pb-2">Sản phẩm liên quan</h4>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {relatedProducts.map((item) => (
+                <ProductCard 
+                  key={item.id} 
+                  product={item} 
+                  onQuickView={handleQuickView} 
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+    <ProductModal 
+      product={selectedProduct} 
+      isOpen={isModalOpen} 
+      onClose={() => setIsModalOpen(false)} 
+    />
+    </>
+  );
+};
+
+export default ProductDetail;

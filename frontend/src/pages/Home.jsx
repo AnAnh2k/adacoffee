@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+import ProductModal from '../components/ProductModal';
 
 const Home = () => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleQuickView = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
   const sampleProducts = [
-    { id: 1, name: 'Cà phê sữa đá', price: '29,000 ₫', img: 'ca-phe-sua-da.jpeg' },
-    { id: 2, name: 'Bạc xỉu đá', price: '32,000 ₫', img: 'bac-xiu-da.jpeg' },
-    { id: 3, name: 'Trà đào cam sả', price: '45,000 ₫', img: 'tra-dao.jpeg' },
-    { id: 4, name: 'Bánh Flan', price: '25,000 ₫', img: 'banh-flan.jpg' },
-    { id: 5, name: 'Americano đá', price: '35,000 ₫', img: 'americano-da.jpeg' },
-    { id: 6, name: 'Trà sữa Matcha', price: '49,000 ₫', img: 'tra-sua-matcha.jpeg' },
-    { id: 7, name: 'Sinh tố dâu', price: '55,000 ₫', img: 'sinh-to-dau.jpeg' },
-    { id: 8, name: 'Trà vải', price: '45,000 ₫', img: 'tra-vai.jpeg' },
+    { id: 1, name: 'Cà phê sữa đá', price: 29000, img: 'ca-phe-sua-da.jpeg' },
+    { id: 2, name: 'Bạc xỉu đá', price: 32000, img: 'bac-xiu-da.jpeg' },
+    { id: 3, name: 'Trà đào cam sả', price: 45000, img: 'tra-dao.jpeg' },
+    { id: 4, name: 'Bánh Flan', price: 25000, img: 'banh-flan.jpg' },
+    { id: 5, name: 'Americano đá', price: 35000, img: 'americano-da.jpeg' },
+    { id: 6, name: 'Trà sữa Matcha', price: 49000, img: 'tra-sua-matcha.jpeg' },
+    { id: 7, name: 'Sinh tố dâu', price: 55000, img: 'sinh-to-dau.jpeg' },
+    { id: 8, name: 'Trà vải', price: 45000, img: 'tra-vai.jpeg' },
   ];
 
   const sampleNews = [
@@ -19,12 +30,12 @@ const Home = () => {
   ];
 
   return (
-    <div className="pt-20"> {/* Padding top to avoid overlap with fixed header */}
+    <>
+    <div className="pt-20">
       
       {/* Categories Section */}
       <section className="py-2 px-2">
         <div className="flex flex-wrap h-[600px]">
-          {/* Large Item */}
           <div className="w-full lg:w-1/2 p-1">
             <div 
               className="h-full relative overflow-hidden group cursor-pointer bg-cover bg-center"
@@ -34,19 +45,18 @@ const Home = () => {
               <div className="absolute left-10 top-1/2 -translate-y-1/2 max-w-xs">
                 <h1 className="text-5xl font-bold mb-4">ADA Coffee</h1>
                 <p className="text-gray-700 mb-6 text-sm">Ghé thăm ADA Coffee - Không gian cà phê đậm chất riêng của Đức Anh.</p>
-                <a href="/products" className="text-xs font-bold uppercase border-b-2 border-primary pb-1 hover:text-primary transition-colors">Xem ngay</a>
+                <Link to="/products" className="text-xs font-bold uppercase border-b-2 border-primary pb-1 hover:text-primary transition-colors">Xem ngay</Link>
               </div>
             </div>
           </div>
           
-          {/* Grid Items */}
           <div className="w-full lg:w-1/2 flex flex-wrap">
             <div className="w-full sm:w-1/2 p-1 h-1/2">
               <div className="h-full relative bg-cover bg-center" style={{ backgroundImage: `url('/img/categories/category-2.jpg')` }}>
                 <div className="absolute left-6 bottom-6">
                   <h4 className="text-xl font-bold mb-1">Trà</h4>
                   <p className="text-gray-600 text-xs mb-3">Không chỉ có cà phê</p>
-                  <a href="/products?type=5" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</a>
+                  <Link to="/products" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</Link>
                 </div>
               </div>
             </div>
@@ -55,7 +65,7 @@ const Home = () => {
                 <div className="absolute left-6 bottom-6">
                   <h4 className="text-xl font-bold mb-1">Tin tức</h4>
                   <p className="text-gray-600 text-xs mb-3">Cập nhật tin tức mới nhất</p>
-                  <a href="/news" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</a>
+                  <Link to="/news" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</Link>
                 </div>
               </div>
             </div>
@@ -64,7 +74,7 @@ const Home = () => {
                 <div className="absolute left-6 bottom-6">
                   <h4 className="text-xl font-bold mb-1">Giới thiệu</h4>
                   <p className="text-gray-600 text-xs mb-3">Chúng tôi là ai</p>
-                  <a href="/about" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</a>
+                  <Link to="/about" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</Link>
                 </div>
               </div>
             </div>
@@ -73,7 +83,7 @@ const Home = () => {
                 <div className="absolute left-6 bottom-6">
                   <h4 className="text-xl font-bold mb-1">Liên hệ</h4>
                   <p className="text-gray-600 text-xs mb-3">Nhắn tin cho chúng tôi</p>
-                  <a href="/contact" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</a>
+                  <Link to="/contact" className="text-[10px] font-bold uppercase border-b-2 border-primary pb-1">Xem ngay</Link>
                 </div>
               </div>
             </div>
@@ -83,40 +93,19 @@ const Home = () => {
 
       {/* Product Section */}
       <section className="py-20 container mx-auto px-4">
-        <div className="mb-12">
-          <h4 className="text-2xl font-bold uppercase inline-block border-b-2 border-primary pb-2">Sản phẩm nổi bật</h4>
+        <div className="mb-12 flex justify-between items-end">
+          <div>
+            <h4 className="text-2xl font-bold uppercase inline-block border-b-2 border-primary pb-2">Sản phẩm nổi bật</h4>
+          </div>
+          <Link to="/products" className="text-xs font-bold uppercase text-gray-400 hover:text-primary transition-colors">Xem tất cả</Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Sample Product */}
           {sampleProducts.map((product) => (
-            <div key={product.id} className="group">
-              <div className="relative overflow-hidden aspect-[3/4] mb-6 bg-gray-100">
-                <img 
-                  src={`/img/products/${product.img}`} 
-                  alt={product.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  onError={(e) => { e.target.src = 'https://placehold.co/300x400?text=Sản+phẩm'; }}
-                />
-                <ul className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <li>
-                    <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-md">
-                      <i className="fas fa-expand-alt"></i>
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-md">
-                      <i className="fas fa-shopping-cart"></i>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-              <div className="text-center">
-                <h6 className="text-sm font-semibold mb-2 hover:text-primary cursor-pointer transition-colors">
-                  {product.name}
-                </h6>
-                <div className="text-primary font-bold">{product.price}</div>
-              </div>
-            </div>
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onQuickView={handleQuickView} 
+            />
           ))}
         </div>
       </section>
@@ -127,7 +116,7 @@ const Home = () => {
           <div className="text-center text-white">
             <span className="text-primary uppercase tracking-[4px] font-semibold text-sm mb-4 block">Ưu đãi lớn</span>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Giảm giá 50% cho đơn hàng đầu tiên</h1>
-            <a href="/products" className="inline-block bg-primary text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-700 transition-colors">Mua ngay</a>
+            <Link to="/products" className="inline-block bg-primary text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-700 transition-colors">Mua ngay</Link>
           </div>
         </div>
       </section>
@@ -177,6 +166,12 @@ const Home = () => {
       </section>
 
     </div>
+    <ProductModal 
+      product={selectedProduct} 
+      isOpen={isModalOpen} 
+      onClose={() => setIsModalOpen(false)} 
+    />
+    </>
   );
 };
 
