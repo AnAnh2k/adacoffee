@@ -52,20 +52,23 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Contact Info */}
           <div>
-            <h6 className="text-sm font-bold uppercase tracking-widest mb-6">Bản tin</h6>
-            <p className="text-gray-500 text-sm mb-6">Đăng ký nhận tin để không bỏ lỡ các ưu đãi mới nhất.</p>
-            <form className="relative">
-              <input 
-                type="email" 
-                placeholder="Email của bạn" 
-                className="w-full h-12 px-5 pr-16 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-primary"
-              />
-              <button className="absolute right-0 top-0 h-12 px-6 bg-primary text-white rounded-full text-xs font-bold uppercase tracking-widest">
-                Gửi
-              </button>
-            </form>
+            <h6 className="text-sm font-bold uppercase tracking-widest mb-6">Liên hệ</h6>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm text-gray-500">
+                <i className="fas fa-map-marker-alt mt-1 text-primary"></i>
+                <span>Số 3 phố Cầu Giấy, quận Đống Đa, Hà Nội</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-500">
+                <i className="fas fa-phone text-primary"></i>
+                <span>0123 456 789</span>
+              </li>
+              <li className="flex items-center gap-3 text-sm text-gray-500">
+                <i className="fas fa-envelope text-primary"></i>
+                <span>contact@adacoffee.com</span>
+              </li>
+            </ul>
           </div>
         </div>
 
