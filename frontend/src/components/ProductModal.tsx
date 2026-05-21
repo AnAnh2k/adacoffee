@@ -1,6 +1,12 @@
-import React from 'react';
+import { Product } from '../data/products';
 
-const ProductModal = ({ product, isOpen, onClose }) => {
+interface ProductModalProps {
+  product: Product | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) => {
   if (!isOpen || !product) return null;
 
   return (
@@ -22,7 +28,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
               src={`/img/products/${product.img}`} 
               alt={product.name} 
               className="w-full h-full object-cover min-h-[400px]"
-              onError={(e) => { e.target.src = 'https://placehold.co/600x800?text=Sản+phẩm'; }}
+              onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x800?text=Sản+phẩm'; }}
             />
           </div>
 

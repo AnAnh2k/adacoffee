@@ -1,4 +1,17 @@
-export const categories = [
+export interface Category {
+  id: number;
+  name: string;
+}
+
+export interface Product {
+  id: number;
+  categoryId: number;
+  name: string;
+  price: number;
+  img: string;
+}
+
+export const categories: Category[] = [
   { id: 1, name: 'Cà phê truyền thống' },
   { id: 2, name: 'Cà phê máy' },
   { id: 3, name: 'Trà trái cây' },
@@ -6,7 +19,7 @@ export const categories = [
   { id: 5, name: 'Bánh & Tráng miệng' },
 ];
 
-export const products = [
+export const products: Product[] = [
   { id: 1, categoryId: 1, name: 'Cà phê sữa đá', price: 29000, img: 'ca-phe-sua-da.jpeg' },
   { id: 2, categoryId: 1, name: 'Cà phê đen đá', price: 25000, img: 'ca-phe-den.jpeg' },
   { id: 3, categoryId: 1, name: 'Bạc xỉu đá', price: 32000, img: 'bac-xiu-da.jpeg' },
@@ -23,3 +36,4 @@ export const products = [
   { id: 14, categoryId: 2, name: 'Espresso đá', price: 30000, img: 'espresso-da.jpeg' },
   { id: 15, categoryId: 3, name: 'Hồng trà chanh', price: 35000, img: 'hong-tra-chanh.jpeg' },
 ];
+

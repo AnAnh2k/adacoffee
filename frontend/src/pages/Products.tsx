@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { products, categories } from '../data/products';
+import { products, categories, Product } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 
 const Products = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [sortOrder, setSortOrder] = useState('default');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [sortOrder, setSortOrder] = useState<string>('default');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleQuickView = (product) => {
+  const handleQuickView = (product: Product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };

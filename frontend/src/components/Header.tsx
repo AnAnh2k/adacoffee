@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
-  const navLinkClass = ({ isActive }) => 
+  const navLinkClass = ({ isActive }: { isActive: boolean }): string => 
     `text-sm font-semibold uppercase transition-colors relative pb-1 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 ${
       isActive ? 'text-primary after:w-full' : 'text-gray-700 hover:text-primary after:w-0 hover:after:w-full'
     }`;

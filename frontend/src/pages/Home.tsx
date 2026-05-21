@@ -2,32 +2,41 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
+import { Product } from '../data/products';
 
 const Home = () => {
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleQuickView = (product) => {
+  const handleQuickView = (product: Product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   };
 
-  const sampleProducts = [
-    { id: 1, name: 'Cà phê sữa đá', price: 29000, img: 'ca-phe-sua-da.jpeg' },
-    { id: 2, name: 'Bạc xỉu đá', price: 32000, img: 'bac-xiu-da.jpeg' },
-    { id: 3, name: 'Trà đào cam sả', price: 45000, img: 'tra-dao.jpeg' },
-    { id: 4, name: 'Bánh Flan', price: 25000, img: 'banh-flan.jpg' },
-    { id: 5, name: 'Americano đá', price: 35000, img: 'americano-da.jpeg' },
-    { id: 6, name: 'Trà sữa Matcha', price: 49000, img: 'tra-sua-matcha.jpeg' },
-    { id: 7, name: 'Sinh tố dâu', price: 55000, img: 'sinh-to-dau.jpeg' },
-    { id: 8, name: 'Trà vải', price: 45000, img: 'tra-vai.jpeg' },
+  const sampleProducts: Product[] = [
+    { id: 1, categoryId: 1, name: 'Cà phê sữa đá', price: 29000, img: 'ca-phe-sua-da.jpeg' },
+    { id: 2, categoryId: 1, name: 'Bạc xỉu đá', price: 32000, img: 'bac-xiu-da.jpeg' },
+    { id: 3, categoryId: 3, name: 'Trà đào cam sả', price: 45000, img: 'tra-dao.jpeg' },
+    { id: 4, categoryId: 5, name: 'Bánh Flan', price: 25000, img: 'banh-flan.jpg' },
+    { id: 5, categoryId: 2, name: 'Americano đá', price: 35000, img: 'americano-da.jpeg' },
+    { id: 6, categoryId: 4, name: 'Trà sữa Matcha', price: 49000, img: 'tra-sua-matcha.jpeg' },
+    { id: 7, categoryId: 4, name: 'Sinh tố dâu', price: 55000, img: 'sinh-to-dau.jpeg' },
+    { id: 8, categoryId: 3, name: 'Trà vải', price: 45000, img: 'tra-vai.jpeg' },
   ];
 
-  const sampleNews = [
+  interface NewsItem {
+    id: number;
+    title: string;
+    date: string;
+    img: string;
+  }
+
+  const sampleNews: NewsItem[] = [
     { id: 1, title: 'Hành trình từ hạt cà phê đến ly tách', date: '20/05/2024', img: 'blog-1.jpg' },
     { id: 2, title: 'Cách pha cà phê ngon tại nhà', date: '18/05/2024', img: 'blog-2.jpg' },
-    { id: 3, title: 'Không gian làm việc lý tưởng tại The Space', date: '15/05/2024', img: 'blog-3.jpg' },
+    { id: 3, title: 'Không gian làm việc lý tưởng tại ADA COFFEE', date: '15/05/2024', img: 'blog-3.jpg' },
   ];
+
 
   return (
     <>
@@ -134,7 +143,7 @@ const Home = () => {
                   src={`/img/blog/${news.img}`} 
                   alt={news.title} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => { e.target.src = 'https://placehold.co/600x400?text=Tin+tức'; }}
+                  onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400?text=Tin+tức'; }}
                 />
               </div>
               <div>
@@ -156,7 +165,7 @@ const Home = () => {
               src={`/img/instagram/insta-${item}.jpg`} 
               alt="Gallery" 
               className="w-full h-full object-cover"
-              onError={(e) => { e.target.src = `https://placehold.co/400x400?text=Gallery+${item}`; }}
+              onError={(e) => { e.currentTarget.src = `https://placehold.co/400x400?text=Gallery+${item}`; }}
             />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <i className="fab fa-instagram text-white text-2xl"></i>

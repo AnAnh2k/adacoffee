@@ -1,11 +1,18 @@
-import React from 'react';
+interface Blog {
+  id: number;
+  title: string;
+  date: string;
+  author: string;
+  img: string;
+  desc: string;
+}
 
 const News = () => {
-  const blogs = [
-    { id: 1, title: 'CÀ PHÊ KHÔNG GIỚI HẠN - TRẢI NGHIỆM MỚI TẠI THE SPACE', date: '20/05/2024', author: 'Đức Anh', img: 'tt00001.jpg', desc: 'Hãy đến với THE SPACE COFFEE, quán cà phê đầu tiên và duy nhất tại Hà Nội mang phong cách vũ trụ...' },
+  const blogs: Blog[] = [
+    { id: 1, title: 'CÀ PHÊ KHÔNG GIỚI HẠN - TRẢI NGHIỆM MỚI TẠI ADA COFFEE', date: '20/05/2024', author: 'Đức Anh', img: 'tt00001.jpg', desc: 'Hãy đến với ADA COFFEE, quán cà phê đầu tiên và duy nhất tại Hà Nội mang phong cách vũ trụ...' },
     { id: 2, title: 'KHÔNG GIAN VŨ TRỤ GIỮA LÒNG HÀ NỘI', date: '18/05/2024', author: 'Admin', img: 'tt00002.jpg', desc: 'Thiết kế nội thất của quán cà phê là sự kết hợp hài hòa giữa sự hiện đại và sang trọng. Các bức tường và trần nhà được trang trí bằng những hình ảnh đẹp mắt...' },
-    { id: 3, title: 'CÁC MÓN ĐỒ UỐNG ĐẶC BIỆT TẠI THE SPACE COFFEE', date: '15/05/2024', author: 'Team ADA', img: 'tt00003.jpg', desc: 'Bạn sẽ được thưởng thức những ly cà phê có hình dạng và màu sắc độc đáo, như Milky Way Latte, Galaxy Frappe hay Starry Night Mocha...' },
-    { id: 4, title: 'WORKSHOP VỀ KHÔNG GIAN VÀ VŨ TRỤ', date: '12/05/2024', author: 'Sự kiện', img: 'tt00004.jpg', desc: 'Bạn cũng có thể tham gia vào các hoạt động vui nhộn và bổ ích tại THE SPACE COFFEE, như xem phim về vũ trụ, chơi trò chơi giải đố...' },
+    { id: 3, title: 'CÁC MÓN ĐỒ UỐNG ĐẶC BIỆT TẠI ADA COFFEE', date: '15/05/2024', author: 'Team ADA', img: 'tt00003.jpg', desc: 'Bạn sẽ được thưởng thức những ly cà phê có hình dạng và màu sắc độc đáo, như Milky Way Latte, Galaxy Frappe hay Starry Night Mocha...' },
+    { id: 4, title: 'WORKSHOP VỀ KHÔNG GIAN VÀ VŨ TRỤ', date: '12/05/2024', author: 'Sự kiện', img: 'tt00004.jpg', desc: 'Bạn cũng có thể tham gia vào các hoạt động vui nhộn và bổ ích tại ADA COFFEE, như xem phim về vũ trụ, chơi trò chơi giải đố...' },
   ];
 
   return (
@@ -31,7 +38,7 @@ const News = () => {
                     src={`/img/news/${blog.img}`} 
                     alt={blog.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    onError={(e) => { e.target.src = 'https://placehold.co/800x450?text=Tin+tức'; }}
+                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/800x450?text=Tin+tức'; }}
                   />
                 </div>
                 <div>

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from '../data/products';
+import { products, Product } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import ProductModal from '../components/ProductModal';
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id } = useParams<{ id: string }>();
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const product = products.find(p => p.id === parseInt(id));
+  const product = products.find(p => p.id === parseInt(id || '0'));
 
-  const handleQuickView = (prod) => {
+  const handleQuickView = (prod: Product) => {
     setSelectedProduct(prod);
     setIsModalOpen(true);
   };
@@ -54,7 +54,7 @@ const ProductDetail = () => {
                 src={`/img/products/${product.img}`} 
                 alt={product.name} 
                 className="w-full h-full object-cover"
-                onError={(e) => { e.target.src = 'https://placehold.co/600x800?text=Sản+phẩm'; }}
+                onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x800?text=Sản+phẩm'; }}
               />
             </div>
           </div>
