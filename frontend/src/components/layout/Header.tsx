@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import Modal from '../common/Modal';
 
 const Header = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }): string => 
     `text-sm font-semibold uppercase transition-colors relative pb-1 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 ${
@@ -44,7 +46,7 @@ const Header = () => {
                 </span>
                 <span className="text-gray-300">|</span>
                 <button 
-                  onClick={logout}
+                  onClick={() => setIsLogoutModalOpen(true)}
                   className="text-xs font-semibold uppercase text-gray-600 hover:text-primary transition-colors cursor-pointer"
                 >
                   Đăng xuất
@@ -71,6 +73,40 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal xác nhận Đăng xuất */}
+      <Modal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        title="Xác nhận đăng xuất"
+        size="sm"
+        footer={
+          <>
+            <button
+              onClick={() => setIsLogoutModalOpen(false)}
+              className="px-4 py-2 text-xs font-semibold text-stone-600 hover:text-stone-800 bg-stone-100 hover:bg-stone-200 rounded-lg transition-colors cursor-pointer"
+            >
+              Hủy
+            </button>
+            <button
+              onClick={() => {
+                setIsLogoutModalOpen(false);
+                logout();
+              }}
+              className="px-4 py-2 text-xs font-semibold text-white bg-primary hover:bg-red-700 rounded-lg transition-colors cursor-pointer shadow-md shadow-primary/20"
+            >
+              Đăng xuất
+            </button>
+          </>
+        }
+      >
+        <div className="flex flex-col items-center text-center gap-3 py-2">
+          <div className="w-12 h-12 rounded-full bg-orange-50 border border-orange-100 flex items-center justify-center text-orange-500 text-xl">
+            <i className="fas fa-sign-out-alt"></i>
+          </div>
+          <p className="text-stone-600 font-medium">Bạn có chắc chắn muốn đăng xuất khỏi tài khoản của mình không?</p>
+        </div>
+      </Modal>
     </header>
   );
 };
