@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +21,7 @@ const Login = () => {
     e.preventDefault();
     if (!email || !password) {
       setErrorMsg('Vui lòng điền đầy đủ Email và Mật khẩu.');
+      toast.error('Vui lòng điền đầy đủ Email và Mật khẩu.');
       return;
     }
 
@@ -28,10 +30,13 @@ const Login = () => {
 
     try {
       await login(email, password);
+      toast.success('Đăng nhập thành công!');
       // Chuyển hướng
       navigate(from, { replace: true });
     } catch (err: any) {
-      setErrorMsg(err.message || 'Đăng nhập không thành công. Vui lòng thử lại.');
+      const msg = err.message || 'Đăng nhập không thành công. Vui lòng thử lại.';
+      setErrorMsg(msg);
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }

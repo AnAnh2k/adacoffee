@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -19,11 +20,13 @@ const Register = () => {
     e.preventDefault();
     if (!name || !email || !password || !confirmPassword) {
       setErrorMsg('Vui lòng điền đầy đủ tất cả thông tin.');
+      toast.error('Vui lòng điền đầy đủ tất cả thông tin.');
       return;
     }
 
     if (password !== confirmPassword) {
       setErrorMsg('Xác nhận mật khẩu không khớp.');
+      toast.error('Xác nhận mật khẩu không khớp.');
       return;
     }
 
@@ -34,11 +37,14 @@ const Register = () => {
     try {
       await register(name, email, password);
       setSuccessMsg('Đăng ký thành công! Đang chuyển hướng sang trang Đăng nhập...');
+      toast.success('Đăng ký thành công! Đang chuyển hướng...');
       setTimeout(() => {
         navigate('/login');
       }, 3000);
     } catch (err: any) {
-      setErrorMsg(err.message || 'Đăng ký không thành công. Vui lòng thử lại.');
+      const msg = err.message || 'Đăng ký không thành công. Vui lòng thử lại.';
+      setErrorMsg(msg);
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }

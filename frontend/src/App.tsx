@@ -10,6 +10,7 @@ import About from './pages/public/About';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </AuthProvider>
   )
