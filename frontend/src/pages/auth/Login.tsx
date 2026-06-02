@@ -103,17 +103,7 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Remember me */}
-          <div className="flex items-center">
-            <input
-              id="remember-me"
-              type="checkbox"
-              className="h-4 w-4 text-primary focus:ring-primary border-stone-300 rounded cursor-pointer"
-            />
-            <label htmlFor="remember-me" className="ml-2 block text-xs text-stone-600 select-none cursor-pointer">
-              Ghi nhớ tài khoản trên thiết bị này
-            </label>
-          </div>
+
 
           {/* Submit button */}
           <button
