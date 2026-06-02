@@ -9,8 +9,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register } = useAuth();
@@ -19,31 +18,26 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !password || !confirmPassword) {
-      setErrorMsg('Vui lòng điền đầy đủ tất cả thông tin.');
       toast.error('Vui lòng điền đầy đủ tất cả thông tin.');
       return;
     }
 
     if (password !== confirmPassword) {
-      setErrorMsg('Xác nhận mật khẩu không khớp.');
       toast.error('Xác nhận mật khẩu không khớp.');
       return;
     }
 
-    setErrorMsg('');
-    setSuccessMsg('');
     setIsSubmitting(true);
 
     try {
       await register(name, email, password);
-      setSuccessMsg('Đăng ký thành công! Đang chuyển hướng sang trang Đăng nhập...');
+      setIsSuccess(true);
       toast.success('Đăng ký thành công! Đang chuyển hướng...');
       setTimeout(() => {
         navigate('/login');
       }, 3000);
     } catch (err: any) {
       const msg = err.message || 'Đăng ký không thành công. Vui lòng thử lại.';
-      setErrorMsg(msg);
       toast.error(msg);
     } finally {
       setIsSubmitting(false);
@@ -66,21 +60,6 @@ const Register = () => {
           <p className="text-stone-500 text-sm mt-1">Đăng ký thành viên mới để nhận nhiều ưu đãi hấp dẫn.</p>
         </div>
 
-        {/* Error message */}
-        {errorMsg && (
-          <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-sm flex items-center gap-3">
-            <i className="fas fa-exclamation-circle text-base"></i>
-            <span>{errorMsg}</span>
-          </div>
-        )}
-
-        {/* Success message */}
-        {successMsg && (
-          <div className="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm flex items-center gap-3">
-            <i className="fas fa-check-circle text-base"></i>
-            <span>{successMsg}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name field */}
@@ -95,7 +74,7 @@ const Register = () => {
                 placeholder="Nguyễn Văn A"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                disabled={isSubmitting || !!successMsg}
+                disabled={isSubmitting || isSuccess}
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-stone-800 placeholder-stone-400 text-sm"
                 required
               />
@@ -114,7 +93,7 @@ const Register = () => {
                 placeholder="example@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={isSubmitting || !!successMsg}
+                disabled={isSubmitting || isSuccess}
                 className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-stone-800 placeholder-stone-400 text-sm"
                 required
               />
@@ -133,7 +112,7 @@ const Register = () => {
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                disabled={isSubmitting || !!successMsg}
+                disabled={isSubmitting || isSuccess}
                 className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-stone-800 placeholder-stone-400 text-sm"
                 required
               />
@@ -159,7 +138,7 @@ const Register = () => {
                 placeholder="••••••••"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                disabled={isSubmitting || !!successMsg}
+                disabled={isSubmitting || isSuccess}
                 className="w-full pl-10 pr-10 py-3 rounded-xl border border-stone-200 bg-white/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-stone-800 placeholder-stone-400 text-sm"
                 required
               />
@@ -182,7 +161,7 @@ const Register = () => {
           {/* Submit button */}
           <button
             type="submit"
-            disabled={isSubmitting || !!successMsg}
+            disabled={isSubmitting || isSuccess}
             className="w-full py-3 px-4 rounded-xl bg-primary hover:bg-red-700 text-white font-semibold text-sm uppercase tracking-wider transition-all duration-300 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 flex items-center justify-center gap-2 disabled:bg-stone-400 disabled:shadow-none cursor-pointer mt-2"
           >
             {isSubmitting ? (

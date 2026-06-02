@@ -7,7 +7,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { login } = useAuth();
@@ -20,12 +19,10 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMsg('Vui lòng điền đầy đủ Email và Mật khẩu.');
       toast.error('Vui lòng điền đầy đủ Email và Mật khẩu.');
       return;
     }
 
-    setErrorMsg('');
     setIsSubmitting(true);
 
     try {
@@ -35,7 +32,6 @@ const Login = () => {
       navigate(from, { replace: true });
     } catch (err: any) {
       const msg = err.message || 'Đăng nhập không thành công. Vui lòng thử lại.';
-      setErrorMsg(msg);
       toast.error(msg);
     } finally {
       setIsSubmitting(false);
@@ -57,14 +53,6 @@ const Login = () => {
           <h2 className="text-2xl font-bold uppercase tracking-wider text-stone-800">ADA Coffee</h2>
           <p className="text-stone-500 text-sm mt-1">Chào mừng bạn quay trở lại! Đăng nhập để tiếp tục.</p>
         </div>
-
-        {/* Error message */}
-        {errorMsg && (
-          <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-sm flex items-center gap-3 animate-headShake">
-            <i className="fas fa-exclamation-circle text-base"></i>
-            <span>{errorMsg}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email field */}
