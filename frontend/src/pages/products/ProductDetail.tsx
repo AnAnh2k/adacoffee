@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products, Product } from '../data/products';
-import ProductCard from '../components/ProductCard';
-import ProductModal from '../components/ProductModal';
+import { products, Product } from '../../data/products';
+import ProductCard from '../../components/product/ProductCard';
+import ProductModal from '../../components/product/ProductModal';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();

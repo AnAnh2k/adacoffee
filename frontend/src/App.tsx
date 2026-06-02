@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import Products from './pages/Products';
-import ProductDetail from './pages/ProductDetail';
-import News from './pages/News';
-import About from './pages/About';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import ScrollToTop from './components/ScrollToTop';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import ScrollToTop from './components/layout/ScrollToTop';
+import Home from './pages/public/Home';
+import Products from './pages/products/Products';
+import ProductDetail from './pages/products/ProductDetail';
+import News from './pages/public/News';
+import About from './pages/public/About';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { products, categories, Product } from '../data/products';
-import ProductCard from '../components/ProductCard';
-import ProductModal from '../components/ProductModal';
+import { products, categories, Product } from '../../data/products';
+import ProductCard from '../../components/product/ProductCard';
+import ProductModal from '../../components/product/ProductModal';
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);

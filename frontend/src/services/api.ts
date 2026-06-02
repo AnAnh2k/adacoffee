@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: "http://localhost:5000/api",
   withCredentials: true, // Cho phép gửi Cookie (Refresh Token) kèm theo request
 });
 
-let accessToken = '';
+let accessToken = "";
 
 export const setAccessToken = (token: string) => {
   accessToken = token;
@@ -23,7 +23,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response Interceptor: Tự động làm mới Access Token khi nhận mã lỗi 401
@@ -49,12 +49,12 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Nếu lỗi 401 (Unauthorized) và request chưa được thử lại
+    // Nếu lỗi 403 (Forbidden) và request chưa được thử lại
     if (
-      error.response?.status === 401 &&
+      error.response?.status === 403 &&
       !originalRequest._retry &&
-      !originalRequest.url?.includes('/auth/refresh') &&
-      !originalRequest.url?.includes('/auth/login')
+      !originalRequest.url?.includes("/auth/refresh") &&
+      !originalRequest.url?.includes("/auth/login")
     ) {
       originalRequest._retry = true;
 
@@ -75,9 +75,9 @@ api.interceptors.response.use(
       try {
         // Gọi API để lấy Access Token mới bằng Refresh Token lưu ở Cookie
         const response = await axios.post(
-          'http://localhost:5000/api/auth/refresh',
+          "http://localhost:5000/api/auth/refresh",
           {},
-          { withCredentials: true }
+          { withCredentials: true },
         );
         const { accessToken: newAccessToken } = response.data;
 
@@ -91,16 +91,16 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         isRefreshing = false;
-        setAccessToken('');
+        setAccessToken("");
 
         // Phát sự kiện toàn cục để AuthContext biết và chuyển hướng người dùng sang trang Login
-        window.dispatchEvent(new Event('auth-expired'));
+        window.dispatchEvent(new Event("auth-expired"));
         return Promise.reject(refreshError);
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

@@ -1,4 +1,4 @@
-import { Product } from '../data/products';
+import { Product } from '../../data/products';
 
 interface ProductModalProps {
   product: Product | null;

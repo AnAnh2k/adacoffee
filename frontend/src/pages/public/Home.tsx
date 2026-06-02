@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../components/ProductCard';
-import ProductModal from '../components/ProductModal';
-import { Product } from '../data/products';
+import ProductCard from '../../components/product/ProductCard';
+import ProductModal from '../../components/product/ProductModal';
+import { Product } from '../../data/products';
 
 const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
