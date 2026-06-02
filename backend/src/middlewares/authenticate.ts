@@ -1,20 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Định nghĩa cấu trúc thông tin User lưu trong Token
 export interface UserPayload {
   id: number;
   email: string;
   role: string;
 }
 
-// Mở rộng interface Request của Express để chứa trường user
 export interface AuthRequest extends Request {
   user?: UserPayload;
 }
 
 export const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction): void => {
-  // Lấy token từ header Authorization (định dạng: 'Bearer TOKEN')
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[0] === 'Bearer' ? authHeader.split(' ')[1] : authHeader;
 
@@ -31,7 +28,6 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
       return;
     }
 
-    // Gán thông tin user đã giải mã vào req.user
     req.user = decoded as UserPayload;
     next();
   });
