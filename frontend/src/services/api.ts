@@ -49,9 +49,9 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Nếu lỗi 403 (Forbidden) và request chưa được thử lại
+    // Nếu lỗi 401 (Unauthorized) hoặc 403 (Forbidden) và request chưa được thử lại
     if (
-      error.response?.status === 403 &&
+      (error.response?.status === 401 || error.response?.status === 403) &&
       !originalRequest._retry &&
       !originalRequest.url?.includes("/auth/refresh") &&
       !originalRequest.url?.includes("/auth/login")
