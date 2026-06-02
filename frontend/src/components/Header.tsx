@@ -1,7 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
+  const { user, isAuthenticated, logout } = useAuth();
+
   const navLinkClass = ({ isActive }: { isActive: boolean }): string => 
     `text-sm font-semibold uppercase transition-colors relative pb-1 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 ${
       isActive ? 'text-primary after:w-full' : 'text-gray-700 hover:text-primary after:w-0 hover:after:w-full'
@@ -32,17 +35,35 @@ const Header = () => {
             <button className="text-gray-700 hover:text-primary transition-colors">
               <i className="fas fa-search text-lg"></i>
             </button>
-            <div className="hidden sm:flex items-center space-x-4">
-              <a href="/login" className="text-xs font-semibold uppercase text-gray-600 hover:text-primary">Đăng nhập</a>
-              <span className="text-gray-300">/</span>
-              <a href="/register" className="text-xs font-semibold uppercase text-gray-600 hover:text-primary">Đăng ký</a>
-            </div>
-            <a href="/cart" className="relative text-gray-700 hover:text-primary transition-colors">
+            
+            {isAuthenticated ? (
+              <div className="hidden sm:flex items-center space-x-3">
+                <span className="text-xs font-semibold text-stone-700 flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-full border border-stone-100">
+                  <i className="far fa-user text-primary"></i>
+                  <span>{user?.name}</span>
+                </span>
+                <span className="text-gray-300">|</span>
+                <button 
+                  onClick={logout}
+                  className="text-xs font-semibold uppercase text-gray-600 hover:text-primary transition-colors cursor-pointer"
+                >
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              <div className="hidden sm:flex items-center space-x-4">
+                <Link to="/login" className="text-xs font-semibold uppercase text-gray-600 hover:text-primary transition-colors">Đăng nhập</Link>
+                <span className="text-gray-300">/</span>
+                <Link to="/register" className="text-xs font-semibold uppercase text-gray-600 hover:text-primary transition-colors">Đăng ký</Link>
+              </div>
+            )}
+
+            <Link to="/cart" className="relative text-gray-700 hover:text-primary transition-colors">
               <i className="fas fa-shopping-cart text-lg"></i>
               <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
                 0
               </span>
-            </a>
+            </Link>
             {/* Mobile menu toggle */}
             <button className="md:hidden text-gray-700">
               <i className="fas fa-bars text-xl"></i>
